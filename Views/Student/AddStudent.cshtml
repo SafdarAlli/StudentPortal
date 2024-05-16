@@ -1,0 +1,41 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model StudentModel
+@inject LMS.Repository.IStandardRepository standardRepository;
+<div class="lg:w-2/6 md:w-1/2 bg-gray-100 rounded-lg p-8 flex flex-col m-auto w-full mt-10 md:mt-0">
+    <h1 class="text-gray-900 text-lg font-medium title-font mb-5">Add Student</h1>
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-red-700"></div>
+        <div class="relative mb-4">
+            <label asp-for="Name" class="leading-7 text-sm text-gray-600"></label>
+            <input asp-for="Name" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" placeholder="Enter Your Name">
+            <span asp-validation-for="Name" class="text-red-700"></span>
+        </div>
+     <div class="relative mb-4">
+            <label asp-for="FatherName" class="leading-7 text-sm text-gray-600"></label>
+            <input asp-for="FatherName" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" placeholder="Enter Your Father Name">
+            <span asp-validation-for="FatherName" class="text-red-700"></span>
+        </div>
+     <div class="relative mb-4">
+            <label asp-for="CNIC" class="leading-7 text-sm text-gray-600"></label>
+            <input asp-for="CNIC" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" placeholder="Enter Your CNIC Number">
+            <span asp-validation-for="CNIC" class="text-red-700"></span>
+        </div>
+     <div class="relative mb-4">
+            <label asp-for="Address" class="leading-7 text-sm text-gray-600"></label>
+            <input asp-for="Address" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" placeholder="Enter Your Adress">
+            <span asp-validation-for="Address" class="text-red-700"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="StandardId" class="leading-7 text-sm text-gray-600 block"></label>
+            <select asp-for="StandardId" asp-items="@standardRepository.GetStandards().Select(x => new SelectListItem() {Text = x.Name, Value = x.Id.ToString()})" class="w-full rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10" >
+                <option disabled selected> -- Select Class</option>
+            </select>
+            <span asp-validation-for="StandardId" class="text-red-700"></span>
+        </div>
+        <input type="submit" class="cursor-pointer text-white bg-blue-700 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg" value= "Add Student" />
+    </form>
+</div>

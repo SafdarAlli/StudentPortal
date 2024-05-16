@@ -1,0 +1,28 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model TeacherModel
+<div class="lg:w-2/6 md:w-1/2 bg-gray-100 rounded-lg p-8 flex flex-col m-auto w-full mt-10 md:mt-0">
+    <h1 class="text-gray-900 text-lg font-medium title-font mb-5">Add Class</h1>
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-red-700"></div>
+        <div class="relative mb-4">
+            <label asp-for="Name" class="leading-7 text-sm text-gray-600"></label>
+            <input asp-for="Name" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" placeholder="Enter Your Name">
+            <span asp-validation-for="Name" class="text-red-700"></span>
+        </div>
+        <div class="relative mb-4">
+            <label asp-for="Phone" class="leading-7 text-sm text-gray-600"></label>
+            <input asp-for="Phone" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" placeholder="Enter Your Phone Number">
+            <span asp-validation-for="Phone" class="text-red-700"></span>
+        </div>
+        <div class="relative mb-4">
+            <label asp-for="Adress" class="leading-7 text-sm text-gray-600"></label>
+            <input asp-for="Adress" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" placeholder="Enter Your Address">
+            <span asp-validation-for="Adress" class="text-red-700"></span>
+        </div>
+        <input type="submit" class="cursor-pointer text-white bg-blue-700 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg" value="Add Teacher" />
+    </form>
+</div>

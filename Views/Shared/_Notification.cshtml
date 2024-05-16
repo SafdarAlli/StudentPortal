@@ -1,0 +1,17 @@
+﻿@if (TempData["Message"] != null)
+{
+
+
+
+<div id="notification" class="flex justify-around items-center bg-green-500 w-96 p-3 text-center absolute right-4 top-20 rounded-md" >
+    @TempData["Message"]
+    <button type="button" onclick={btnclose()} class="text-2xl">X</button>
+</div>
+}
+<script>
+    let btn = document.getElementById("notification");
+    let btnclose = ()=>
+    {
+        btn.style.display = "none";
+    }
+</script>

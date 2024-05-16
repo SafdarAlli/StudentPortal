@@ -1,0 +1,42 @@
+﻿@inject LMS.Repository.IStandardRepository standardRepository;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - LMS</title>
+    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
+    <link href="~/css/datatable.css" rel="stylesheet" />
+</head>
+<body>
+<header class="body-font bg-gray-900 text-white sticky top-0">
+  <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+    <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+      <span class="ml-3 text-xl text-white">Student Portal</span>
+    </a>
+    <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
+      <a class="mr-5 hover:text-gray-300 hover:cursor-pointer" asp-controller = "Home" asp-action = "Index">Home</a>
+      <a class="mr-5 hover:text-gray-300 hover:cursor-pointer"asp-controller = "Student" asp-action = "Index">Students</a>
+      <a class="mr-5 hover:text-gray-300 hover:cursor-pointer" asp-controller = "Standard" asp-action = "Index">Classes</a>
+      <a class="mr-5 hover:text-gray-300 hover:cursor-pointer"  asp-controller = "Teacher" asp-action = "Index">Teachers</a>
+    </nav>
+  </div>
+</header>
+    <div class="container">
+        <main role="main">
+            <partial name="_Notification" />
+            @RenderBody()
+        </main>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/DataTable/datatables.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        $(document).ready(() => {
+            $("#tbl").dataTable();
+        });
+    </script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

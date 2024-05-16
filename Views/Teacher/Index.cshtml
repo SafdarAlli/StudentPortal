@@ -1,0 +1,64 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@{
+    ViewData["Title"] = "Home Page";
+}
+@model List<TeacherModel>
+@inject LMS.Repository.ITeacherRepository teacherRepository; 
+<div class="w-4/5 m-auto">
+    <div class="flex justify-between items-center">
+        <h1 class="text-4xl font-bold my-8">All Teachers</h1>
+        <a asp-action="AddTeacher" adp-asp-controller="Teacher" class="bg-blue-700 text-center text-white p-2 hover:bg-indigo-700 w-32 rounded-md">Add Teacher</a>
+    </div>
+    <table class="table" id="tbl">
+        <thead>
+            <tr class="border-b-2 border-black">
+                <th class=""> Id</th>
+                <th class=""> Name</th>
+                <th class=""> Phone</th>
+                <th class=""> Classes</th>
+                <th class=""></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr class="border-b-[1px] border-black">
+                <th class="p-6">@item.Id</th>
+                <td class="">@item.Name</td>
+                <td class="">@item.Phone</td>
+                <td class="">
+                   <div class="p-2 bg-white">
+                        <button class="text-white w-40 p-1 bg-blue-700 border-0 focus:outline-none px-2 hover:bg-indigo-700 rounded" onclick={handleClick(@item.Id.ToString())}>
+                            Show Classes
+                        </button>
+                        <ul class="hidden w-40 bg-white text-center border-2 rounded-sm border-gray-500 mt-[1px] absolute" id="@item.Id">
+                            @{
+                                var data = teacherRepository.GetStandardByTeacher(item.Id);
+                                foreach (var temp in data)
+                                {
+                                    <li class="w-40 p-2">@temp.Name</li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </td>
+                <td class="">
+                    <a class="text-white  p-1 bg-blue-700 border-0 focus:outline-none px-2 hover:bg-indigo-700 rounded  mx-4" asp-action="EditTeacher" asp-controller="Teacher" asp-route-id="@item.Id">Update</a>
+                    <a class="text-white p-1 bg-red-600 border-0 focus:outline-none px-2 hover:bg-red-700 rounded " onclick="return window.confirm('are You Sure you want to delete')" asp-action="Delete" asp-controller="Teacher" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+<script>
+    function handleClick(ab){
+        let ele = document.getElementById(ab);
+        ele.classList.toggle("hidden");
+    }
+</script>

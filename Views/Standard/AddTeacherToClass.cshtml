@@ -1,0 +1,40 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model StandardTeacherModel
+@inject LMS.Repository.ITeacherRepository teacherRepository;
+@inject LMS.Repository.IStandardRepository standardRepositoy;
+
+
+
+<div class='w-3/4 m-auto mt-8'>
+    <p class='text-4xl font-extrabold'>List of Teachers</p>
+    <p class='text-3xl mt-4 font-bold'>First Year</p>
+    <ul class='mt-4'>
+
+        @{
+            var data = standardRepositoy.GetTeacherByClass(ViewBag.standardId);
+            foreach (var item in data)
+            {
+                <li class='flex w-1/4 justify-between p-4'><p class='p-1'>@item.Name</p><a onclick="return window.confirm('are You Sure you want to Remove-')" asp-controller="Standard" asp-action="RemoveTeacherFromClass" asp-route-standardId="@ViewBag.standardId" asp-route-teacherId="@item.Id" class='text-white p-1 bg-red-600 border-0 focus:outline-none px-2 hover:bg-red-700 rounded cursor-pointer'>Remove</a></li>
+            }
+        }
+    </ul>
+    <div>
+        <form method="post">
+            <div  class="text-red-700"></div>
+            <input asp-for="StandardId" class="hidden" value="@ViewBag.standardId" />
+            <div class="mb-3">
+                <select asp-for="TeacherId" asp-items="@teacherRepository.GetTeachers().Select(x => new SelectListItem() {Text = x.Name, Value = x.Id.ToString()})" class="w-1/4 rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10">
+                    <option disabled selected> -- Select Teacher</option>
+                </select>
+                <div class="text-red-700">@ViewBag.Error</div>
+            </div>
+            <input type="submit" class="cursor-pointer text-white bg-blue-700 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg" value="Add Teacher" />
+        </form>
+    </div>
+</div>
+
+

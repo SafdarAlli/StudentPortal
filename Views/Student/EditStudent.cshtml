@@ -1,0 +1,41 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model StudentModel;
+@inject LMS.Repository.IStandardRepository standardRepository;
+<div class="container">
+    <h1>Update Student</h1>
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label"></label>
+            <input asp-for="Name" class="form-control w-25" placeholder="Enter Your Name">
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="FatherName" class="form-label"></label>
+            <input asp-for="FatherName" class="form-control w-25" placeholder="Enter Your Father Name">
+            <span asp-validation-for="FatherName" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="CNIC" class="form-label"></label>
+            <input asp-for="CNIC" type="number" class="form-control w-25" placeholder="Enter Your CNIC Number">
+            <span asp-validation-for="CNIC" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Address" class="form-label"></label>
+            <input asp-for="Address" class="form-control w-25" placeholder="Enter Your Adress">
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="StandardId" class="form-label"></label>
+            <select asp-for="StandardId" asp-items="@standardRepository.GetStandards().Select(x => new SelectListItem() {Text = x.Name, Value = x.Id.ToString()})" class="form-control w-25" placeholder="Enter Your Name">
+                <option disabled selected> -- Select Class</option>
+            </select>
+            <span asp-validation-for="StandardId" class="text-danger"></span>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Update Student" />
+    </form>
+</div>

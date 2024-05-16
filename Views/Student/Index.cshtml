@@ -1,0 +1,68 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model List<StudentModel>
+@inject LMS.Repository.IStandardRepository standardRepository;
+<div class="w-4/5 m-auto">
+    <div class="flex justify-between items-center">
+    <h1 class="text-4xl font-bold my-8">All Students</h1>
+    <a asp-action="AddStudent" adp-asp-controller="Student" class="bg-blue-700 text-center text-white p-2 hover:bg-indigo-700 w-32 rounded-md">Add Student</a>
+    </div>
+    <div class="absolute w-40 p-2 right-[36rem]  z-10 bg-white">
+        <button  class="w-40 rounded-sm border-[1px] border-gray-400" onclick = {handleClick()}>
+            @if (ViewBag.standard != null)
+            {
+                @standardRepository.GetStandard(ViewBag.standard).Name
+            }
+            else
+            {
+                @ViewBag.All
+            }
+        </button>
+        <ul class="hidden text-center w-40 border-[1px] bg-white border-gray-400 mt-[1px]" id = "list">
+            <li class = "w-40 p-1 hover:bg-blue-500"><a asp-action="Index" asp-controller="Student" asp-route-id="" class="">All</a></li>
+            @{
+                var data = standardRepository.GetStandards().ToList();
+                foreach (var item in data)
+                {
+                    <li class = "w-40 p-1 hover:bg-blue-500"><a asp-action="Index" asp-controller="Student" asp-route-id="@item.Id" class="">@item.Name</a></li>
+                }
+            }
+        </ul>
+    </div>
+    <table class="table" id="tbl">
+        <thead>
+            <tr class="border-b-2 border-black">
+                <th class = "" >Student Id</th>
+                <th class = "" >Name</th>
+                <th class = "" >Father Name</th>
+                <th class = "" >Class</th>
+                <th class = "" ></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="border-b-[1px] border-black">
+                    <th class ="p-6">@item.Id</th>
+                    <td class ="">@item.Name</td>
+                    <td class ="">@item.FatherName</td>
+                    <td class ="">@standardRepository.GetStandard(item.StandardId).Name</td>
+                    <td class="">
+                        <a class ="text-white  p-1 bg-blue-700 border-0 focus:outline-none px-2 hover:bg-indigo-700 rounded  mx-4" asp-action="EditStudent" asp-controller="Student" asp-route-id="@item.Id">Update</a>
+                        <a class ="text-white p-1 bg-red-600 border-0 focus:outline-none px-2 hover:bg-red-700 rounded " onclick="return window.confirm('are You Sure you want to delete')" asp-action="Delete" asp-controller="Student" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+<script>
+let handleClick = ()=>
+{
+    let ele = document.getElementById("list");
+    ele.classList.toggle("hidden");
+    console.log("helo");
+}
+</script>

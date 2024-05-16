@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model List<StandardModel>
+@inject LMS.Repository.IStandardRepository standardRepository;
+@inject LMS.Repository.IStudentRepository studentRepository;
+<div class="w-4/5 m-auto">
+    <div class="flex justify-between items-center">
+        <h1 class="text-4xl font-bold my-8">All Classes</h1>
+        <a asp-action="AddStandard" adp-asp-controller="Standard" class="bg-blue-700 text-center text-white p-2 hover:bg-indigo-700 w-32 rounded-md">Add Class</a>
+    </div>
+    <table class="table" id="tbl">
+        <thead>
+            <tr class="border-b-2 border-black">
+                <th class="">Teacher Id</th>
+                <th class="">Name</th>
+                <th>No of Students</th>
+                <th class=""></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr class="border-b-[1px] border-black">
+                <th class="p-6">@item.Id</th>
+                <td class="text-center">@item.Name</td>
+                <td>@studentRepository.GetStudents(item.Id).Count()</td>
+                <td >
+                    <a class="text-white  p-1 bg-blue-700 border-0 focus:outline-none px-2 hover:bg-indigo-700 rounded  mx-4" asp-action="EditStandard" asp-controller="Standard" asp-route-id="@item.Id">Update</a>
+                    <a class="text-white  p-1 bg-blue-700 border-0 focus:outline-none px-2 hover:bg-indigo-700 rounded  mx-4" asp-action="AddTeacherToClass" asp-controller="Standard" asp-route-id="@item.Id">Manage Teachers</a>
+                    <a class="text-white p-1 bg-red-600 border-0 focus:outline-none px-2 hover:bg-red-700 rounded ml-4" onclick="return window.confirm('are You Sure you want to delete')" asp-action="Delete" asp-controller="Standard" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+<script>
+    function handleClick(ab) {
+        let ele = document.getElementById(ab);
+        ele.classList.toggle("hidden");
+    }
+</script>
+
